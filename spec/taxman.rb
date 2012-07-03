@@ -16,8 +16,8 @@ describe Taxman do
 
 		it "should properly calculate taxes for $0-18,200 income" do
 			Taxman.tax(0).must_equal 0
-			Taxman.tax(10000).must_equal 150
-			Taxman.tax(18200).must_equal 273
+			Taxman.tax(10000).must_equal 0
+			Taxman.tax(18200).must_equal 0
 		end
 		
 		it "should properly calculate taxes for $18,201-$37,000 income" do
