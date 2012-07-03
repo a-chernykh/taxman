@@ -23,5 +23,29 @@ class Taxman
 
 			tax.to_f.round(3)
 		end
+
+		def parse(client)
+			name, income = client.split(',')
+
+			raise Exception.new("missing data") if name.nil? || income.nil?
+
+			name.strip!
+			income.strip!
+
+			raise ArgumentError.new("income must be numeric") unless (Float(income) rescue false)
+			income = income.to_f
+			raise ArgumentError.new("income must be positive") if income < 0
+
+			[name, income]
+		end
+
+		def process(client)
+			name, income = parse(client)
+
+			tax = tax(income)
+			left = income - tax
+
+			"#{name}, #{tax.round(0)}, #{left.round(0)}"
+		end
 	end
 end

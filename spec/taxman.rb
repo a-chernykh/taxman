@@ -43,4 +43,22 @@ describe Taxman do
 			Taxman.tax(2000000).must_equal 903547.0
 		end
 	end
+
+	describe 'client parsing' do
+		it 'should raise an error if name is missing' do
+			lambda { Taxman.parse('John Smith') }.must_raise Exception
+		end
+
+		it 'should parse client and return name and income' do
+			Taxman.parse('John Smith, 15000').must_equal ['John Smith', 15000]
+		end
+	end
+
+	describe 'process client' do
+		it 'should return how much taxex client should pay and how many money client will have after tax' do
+			Taxman.process('John Smith, 15000').must_equal 'John Smith, 0, 15000'
+			Taxman.process('John Doe, 20000').must_equal 'John Doe, 642, 19358'
+			Taxman.process('Joe Doe, 200000').must_equal 'Joe Doe, 66547, 133453'
+		end
+	end
 end
