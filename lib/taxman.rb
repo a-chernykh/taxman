@@ -19,6 +19,8 @@ class Taxman
 				54547 + (income - 180000) * 0.45
 			end
 
+			tax += income.to_f * 0.015
+
 			tax.to_f.round(3)
 		end
 	end
